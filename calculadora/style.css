@@ -1,0 +1,237 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: var(--font-default); 
+}
+
+:root {
+    /*Todas as variáveis de cores*/
+    --bg-dark: linear-gradient(140deg, rgba(43, 45, 46, 0.9) 10%, rgb(51, 50, 50) 90%);
+    --bg-btn-destaque:linear-gradient(140deg, rgb(97, 57, 9), 20%, rgb(244, 137, 7) 80%);
+    --bg-btn-secundario: linear-gradient(140deg, rgb(87, 88, 93) 20%, rgb(121, 121, 132) 80%); 
+    --bg-btn-padrao: linear-gradient(140deg, rgb(46, 46, 47) 20%, rgb(72, 75, 84) 100%);
+    --bg-btn-padrao-hover: linear-gradient(140deg, rgb(40, 40, 40) 0%, rgb(70, 70, 75) 100%);
+    --bg-btn-secundario-hover: linear-gradient(140deg, rgb(87, 88, 93) 20%, rgb(121, 121, 132) 80%); 
+    --bg-btn-destaque-hover:linear-gradient(140deg, rgb(97, 57, 9), 20%, rgb(244, 137, 7) 80%);
+    --font-default: "Nunito", sans-serif;
+}
+
+div#background { /*Fudno da página*/
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(225, 227, 228);
+}
+
+div#calculadora { /*Corpo da calculadora*/
+    display: grid; /* Definindo o corpo da calculadora */
+    grid-template: 36% 1fr / repeat(1, auto); /* 2 linhas e 1 coluna*/
+    gap: 10px; 
+
+    height: 780px;
+    width: 370px;
+    padding: 4px 10px 40px 10px;
+
+    background-image: var(--bg-dark);
+    backdrop-filter: bluer(8px);
+    -webkit-backdrop-filter: blur(8px);    
+    border-radius: 80px;
+    box-shadow: inset 0px 0px 20px 5px rgb(68, 69, 69), 60px 70px  50px 10px rgba(0, 0, 0, 0.37);
+}
+
+div#topo { /*Area do visor e do resultado ( linha 1 do grid da calculadora )*/
+    display: flex;
+    flex-flow: column;
+    justify-content: end; /*alinhamento do eixo vertical em caso de column*/ 
+    align-items: end; /*alinhamento do exio horizontal em caso de column*/ 
+    
+    padding: 0px 30px;
+
+    grid: 1 / 1 / 2 / -1;    
+}
+
+div#visor { /*Area de input do usuário ( div dentro do topo )*/
+    height: 50px;
+    width: 300px;
+
+    overflow-x: auto;
+    white-space: nowrap;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+
+    text-align: right;
+    font-size: 2em;
+    font-weight: 300;
+    color: rgb(206, 206, 206);
+
+}
+
+#visor::-webkit-scrollbar {
+    height: 0px; /* Deixa a barra bem fininha */
+}
+
+div#resultado { /*Area da resposta do input*/
+    height: 80px;
+    width: 300px;
+    
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+
+    text-align: right;
+    font-size: 4em;
+    font-weight: 300;
+    color: whitesmoke;
+}
+
+#resultado::-webkit-scrollbar {
+    height: 0px; /* Deixa a barra bem fininha */
+}
+
+div#teclado { /*Area dos botões da calculadora*/
+    display: grid;
+    gap: 6px 4px;
+    grid-template: repeat(5, 80px) / repeat(4, 80px);
+    grid-area: 2 / 1 / -1 / -1;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    
+    padding: 6px;
+
+    background-color: transparent;
+}
+
+button { /*Botão padrão calculadora*/
+    height: 100%;
+    width: 100%;
+
+    background-image: var(--bg-btn-padrao);
+    color: whitesmoke;
+
+    border: 1px solid rgba(58, 57, 57, 0.325);
+    border-radius: 30px;
+
+    font-size: 1.6em;
+    font-weight: 100;
+
+
+    box-shadow: inset 0px 0px 6px 3px rgb(62, 63, 64), 10px 10px 15px 1px rgba(0, 0, 0, 0.227);
+}
+
+button:hover { 
+    cursor: pointer;
+    background-image: var(--bg-btn-padrao-hover);
+    box-shadow: inset 0px 0px 6px 3px rgba(62, 63, 64), 0px 0px 15px 4px rgba(0, 0, 0, 0.227);
+}
+
+button:active {
+    transform: scale(0.95) translate(2px);
+    transition: transform 0.1s;
+}
+
+.btn-secundario { /*botão cinza*/
+    color: whitesmoke;
+    background-image: var(--bg-btn-secundario);
+
+    border: 1px solid rgba(31, 31, 31, 0.799);
+    box-shadow: inset 0px 0px 6px 5px rgb(101, 101, 104), 0px 0px 15px 1px rgba(0, 0, 0, 0.288);
+}
+
+button.btn-secundario:hover { 
+    cursor: pointer;
+    background-image: var(--bg-btn-secundario-hover);
+    box-shadow: inset 0px 0px 6px 5px rgb(107, 107, 111), 0px 0px 10px 1px rgba(0, 0, 0, 0.288);
+}
+.btn-destaque { /*botão laranja*/
+    color: rgb(255, 255, 255);
+    background-image: var(--bg-btn-destaque);
+
+    border: 1px solid rgba(31, 31, 31, 0.799);
+    box-shadow: inset 0px 0px 6px 5px rgb(231, 127, 3), 0px 0px 15px 4px rgba(0, 0, 0, 0.288);
+}
+
+.btn-destaque:hover {
+    background-image: var(--bg-btn-destaque-hover);
+    box-shadow: inset 0px 0px 6px 5px rgb(255, 140, 0), 0px 0px 15px 1px rgba(255, 145, 0, 0.288);
+}
+
+button#btn-9 {
+    grid-area: 2 / 3 / 3 / -2;
+}
+
+button#btn-8 {
+    grid-area: 2 / 2 / 3 / 3;
+}
+
+button#btn-7 {
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+button#btn-6 {
+    grid-area: 3 / 3 / 4 / -2;
+}
+
+button#btn-5 {
+    grid-area: 3 / 2 / 4 / 3;
+}
+
+button#btn-4 {
+    grid-area: 3 / 1 / 4 / 2;
+}
+
+button#btn-3 {
+    grid-area: 4 / 3 / 5 / -2;
+}
+
+button#btn-2 {
+    grid-area: 4 / 2 / 5 / 3;
+}
+
+button#btn-1 {
+    grid-area: 4 / 1 / 5 / 2;
+}
+
+button#btn-0 {
+    grid-area: -2 / 1 / -1 / 4;
+}
+
+button#btn-ponto {
+    grid-area: 1 / 3 / 2 / -2;
+}
+
+button#btn-divi {
+    grid-area: 1 / 4 / 2 / -1;
+}
+
+button#btn-multi {
+    grid-area: 2 / 4 / 3 / -1;
+}
+
+button#btn-sub{
+    grid-area: 3 / 4 / 4 / -1;
+}
+
+button#btn-soma{
+    grid-area: 4 / 4 / 5 / -1;
+}
+
+button#btn-limpar {
+    grid-area: 1 / 1 / 1 / 2;
+}
+
+button#btn-backspace {
+    grid-area: 1 / 2 / 2 / 3;
+}
+
+button#btn-resultado {
+    grid-area: auto;
+}
